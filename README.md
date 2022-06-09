@@ -41,3 +41,19 @@ terraform state show aws_eip.eip-production
 ```
 
 Acessar pelo navegador (neste exemplo, somente via HTTP).
+
+## Alterando o conteúdo da instância
+
+Você pode alterar o conteúdo a ser baixado via `git clone` através da variável `repo_url` no arquivo `terraform.tfvars`. Teste com algum dos exemplos ou use qualquer repositório com arquivos estáticos.
+
+Caso já tenha criado, você pode destruir somente a instância EC2:
+
+```bash
+terraform destroy -target aws_instance.ec2-production
+```
+
+E recriar o recurso:
+
+```bash
+terraform apply -target aws_instance.ec2-production
+```

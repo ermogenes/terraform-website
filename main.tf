@@ -1,3 +1,9 @@
+variable "repo_url" {
+  description = "URL do repo contendo os arquivos estáticos a serem publicados"
+  type = string
+  default = "https://github.com/ermogenes/cursos.git"
+}
+
 provider "aws" {
   region = "us-east-1"
   access_key = "xxxxxx"
@@ -148,12 +154,16 @@ resource "aws_instance" "ec2-production" {
     find /var/www -type d -exec sudo chmod 2775 {} \;
     find /var/www -type f -exec sudo chmod 0664 {} \;
     sudo yum install -y git
-    git clone https://github.com/ermogenes/cursos.git /var/www/html
+    git clone ${var.repo_url} /var/www/html
   EOF
 
   tags = {
     "Name" = "ec2_production_terraform-website"
   }
+}
+
+output "content_from_repo" {
+  value = var.repo_url
 }
 
 output "ec2-production-public_ip" {
@@ -162,4 +172,8 @@ output "ec2-production-public_ip" {
 
 output "ec2-production-public_dns" {
   value = aws_eip.eip-production.public_dns
+}
+
+output "http_url" {
+  value = "http://${aws_eip.eip-production.public_dns}/"
 }
