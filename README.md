@@ -28,6 +28,16 @@ terraform destroy
 ```
 
 ## Vendo o resultado
-Abrir o AWS Console e procurar pelo IP público da instância.
+Encontrar o IP e o DNS públicos disponibilizados para a instância. Eles será exibido ao final do `apply`. Caso não seja, use:
+
+```bash
+terraform output
+```
+
+ou
+
+```bash
+terraform state show aws_eip.eip-production
+```
 
 Acessar pelo navegador (neste exemplo, somente via HTTP).

@@ -155,3 +155,11 @@ resource "aws_instance" "ec2-production" {
     "Name" = "ec2_production_terraform-website"
   }
 }
+
+output "ec2-production-public_ip" {
+  value = aws_eip.eip-production.public_ip
+}
+
+output "ec2-production-public_dns" {
+  value = aws_eip.eip-production.public_dns
+}
